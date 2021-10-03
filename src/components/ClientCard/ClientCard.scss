@@ -1,0 +1,51 @@
+@import "../../Variables";
+.clientCard {
+  display: flex;
+  flex-flow: column wrap;
+  background-color: #fdfdfd;
+  box-shadow: 0 0 15px 1px #a7a7a770;
+  border-radius: 5px;
+  min-height: 100px;
+  width: 380px;
+  margin: .7em .9em;
+  padding: 1.2em;
+  transition: 0.5s;
+  .row {
+    display: flex;
+    flex-direction: row;
+    &.first {
+      justify-content: space-between;
+      .viewMore {
+        @include btn-secondary($secondary-color)
+      }
+      h2 {
+        color: $dark-primary-color;
+      }
+    }
+    &.last {
+      justify-content: end;
+      .delete {
+        @include btn-secondary($error-color, 1em)
+      }
+      .edit {
+        @include btn-primary()
+      }
+    }
+  }
+  
+  .identity {
+    color: $dark-primary-color;
+    font-size: .7em;
+    margin-bottom: .5em;
+  }
+  .email {
+    font-weight: 500;
+  }
+  
+  * {
+    cursor: default;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+}

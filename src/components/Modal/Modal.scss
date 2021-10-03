@@ -1,0 +1,35 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 1.5em;
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 5px;
+  z-index: 1000;
+  .modalToolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h1 {
+      font-size: 1.1em;
+    }
+    .closeBtn {
+      width: max-content;
+      margin-left: auto;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0 0 0 0;
+  background-color: #00000070;
+  z-index: 1000;
+}

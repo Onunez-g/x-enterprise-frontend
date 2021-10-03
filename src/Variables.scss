@@ -1,0 +1,119 @@
+$primary-color: #6a2de4;
+$dark-primary-color: #3c1c7c;
+$secondary-color: #4d9de0;
+$accent-color: #ff934f;
+$accent-color-2: #f5ffc6;
+$darkText-color: #2a2d34;
+$lightText-color: #fcfcfc;
+$error-color: #f33222;
+
+@mixin btn-primary($padding: 0.7em 0.9em, $fontSize: 1em, $margin: 0, $color: $primary-color) {
+  background-color: $color;
+  border: none;
+  border-radius: 5px;
+  padding: $padding;
+  color: $lightText-color;
+  font-weight: 600;
+  font-size: $fontSize;
+  transition: color 2s, border 2s;
+  margin: $margin;
+  &:hover {
+    color: $color;
+    background-color: transparent;
+    border: thin solid $color;
+  }
+}
+
+@mixin btn-reverse-primary(
+  $padding: 0.7em 0.9em,
+  $fontSize: 1em,
+  $margin: 0,
+  $color: $primary-color
+) {
+  background-color: transparent;
+  color: $color;
+  border: thin solid $color;
+  border-radius: 5px;
+  padding: $padding;
+  color: $lightText-color;
+  font-weight: 600;
+  font-size: $fontSize;
+  transition: background-color 2s, border 2s;
+  margin: $margin;
+  &:hover {
+    color: $lightText-color;
+    background-color: $color;
+    border: none;
+  }
+}
+
+@mixin btn-secondary($color: $error-color, $marginRight: 0) {
+  background-color: transparent;
+  border: none;
+  color: $color;
+  margin-right: $marginRight;
+  &:hover {
+    border-bottom: thin solid $color;
+  }
+}
+@mixin btn-border-drawing(
+  $color: #ccc,
+  $hover: black,
+  $width: 2px,
+  $vertical: top,
+  $horizontal: left,
+  $duration: 0.25s
+) {
+  box-shadow: inset 0 0 0 $width $color;
+  color: $color;
+  transition: color $duration $duration/3;
+  position: relative;
+  &::before,
+  &::after {
+    border: 0 solid transparent;
+    border-radius: 5px;
+    box-sizing: border-box;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    #{$vertical}: 0;
+    #{$horizontal}: 0;
+  }
+
+  &::before {
+    $h-side: if($horizontal == "left", "right", "left");
+
+    border-#{$vertical}-width: $width;
+    border-#{$h-side}-width: $width;
+  }
+
+  &::after {
+    $v-side: if($vertical == "top", "bottom", "top");
+
+    border-#{$v-side}-width: $width;
+    border-#{$horizontal}-width: $width;
+  }
+
+  &:hover {
+    color: $hover;
+    background-color: transparent;
+    &::before,
+    &::after {
+      border-color: $hover;
+      transition: border-color 0s, width $duration, height $duration;
+      width: 100%;
+      height: 100%;
+    }
+
+    &::before {
+      transition-delay: 0s, 0s, $duration;
+    }
+
+    &::after {
+      transition-delay: 0s, $duration, 0s;
+    }
+  }
+}

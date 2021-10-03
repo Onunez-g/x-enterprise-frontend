@@ -1,0 +1,29 @@
+@import "../../Variables";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 3rem;
+  background: $primary-color;
+  background: linear-gradient(30deg, $dark-primary-color 0%, $primary-color 21%, $secondary-color 100%);
+  color: $lightText-color;
+  h1 {
+    cursor: pointer;
+    color: $lightText-color;
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-left: 2em;
+    padding: 6px 0;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+}

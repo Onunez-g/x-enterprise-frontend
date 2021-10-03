@@ -1,0 +1,37 @@
+@import "../../Variables";
+.btnGroup {
+  display: flex;
+  flex-direction: row;
+  background-color: none;
+  border: none;
+  button {
+    margin: 0;
+    padding: .8em .9em;
+    border-radius: 5px;
+    &:hover {
+      background-color: #e2e1e1 !important;
+    }
+    &.active {
+      pointer-events: none;
+      background-color: #dfdfdf !important;
+      color: $primary-color;
+    }
+    &.text {
+      background-color: transparent;
+      border: none;
+    }
+    &.outline {
+      border: thin solid #c9c9c9;
+      &:not(:last-child) {
+        border-right: none;
+      }
+      &:last-child {
+        border-radius: 0 3px 3px 0;
+      }
+    }
+    &.filled {
+      background-color: $primary-color;
+      border: thin solid $dark-primary-color;
+    }
+  }
+}

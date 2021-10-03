@@ -1,0 +1,115 @@
+@import "../../Variables";
+.table {
+  border-collapse: collapse;
+  margin: 1em;
+  font-size: .9em;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px #0000001f;
+  min-width: 30em;
+  thead {
+    background-color: $primary-color;
+    tr {
+      text-align: left;
+    }
+    th {
+      color: #FAFAFA;
+    }
+  }
+  th, td {
+    cursor: default;
+    padding: .7em .8em;
+  }
+  tbody tr {
+    border-bottom: thin solid #dddddd;
+  }
+  tr:nth-child(even) {
+    background-color: #f3f3f3;
+  }
+  tr:last-of-type {
+    border-bottom: thick solid $primary-color;
+  }
+  tbody tr:hover {
+    background-color: #e7e7e7;
+    td {
+      color: $primary-color;
+    }
+  }
+}
+
+.deleteModal {
+  display: flex;
+  flex-direction: column;
+  .buttons {
+    display: flex;
+    margin-top: 1.2em;
+    flex-direction: row;
+    justify-content: end;
+    .cancelBtn {
+      border: none;
+      background-color: transparent;
+      color: $accent-color;
+      margin-right: 1em;
+      transition: border-bottom 2s ease;
+      &:hover {
+        border-bottom: thin solid $accent-color;
+      }
+    }
+    .deleteBtn {
+      border: none;
+      background-color: #F33222;
+      color: $lightText-color;
+      font-weight: 600;
+      padding: .7em 1em;
+      border-radius: 5px;
+    }
+  }
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+
+  .paginationItem {
+    padding: 0 12px;
+    height: 32px;
+    text-align: center;
+    margin: auto 4px;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    letter-spacing: 0.01071em;
+    border-radius: 16px;
+    line-height: 1.43;
+    font-size: 13px;
+    min-width: 32px;
+
+    &.dots:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: rgba(0, 0, 0, 0.08);
+      color: $primary-color;
+      font-weight: 600;
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+      visibility: hidden;
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+}
