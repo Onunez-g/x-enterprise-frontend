@@ -7,6 +7,9 @@
   overflow: hidden;
   box-shadow: 0 0 20px #0000001f;
   min-width: 30em;
+  .emptyRow {
+    text-align: center;
+  }
   thead {
     background-color: $primary-color;
     tr {
@@ -33,35 +36,6 @@
     background-color: #e7e7e7;
     td {
       color: $primary-color;
-    }
-  }
-}
-
-.deleteModal {
-  display: flex;
-  flex-direction: column;
-  .buttons {
-    display: flex;
-    margin-top: 1.2em;
-    flex-direction: row;
-    justify-content: end;
-    .cancelBtn {
-      border: none;
-      background-color: transparent;
-      color: $accent-color;
-      margin-right: 1em;
-      transition: border-bottom 2s ease;
-      &:hover {
-        border-bottom: thin solid $accent-color;
-      }
-    }
-    .deleteBtn {
-      border: none;
-      background-color: #F33222;
-      color: $lightText-color;
-      font-weight: 600;
-      padding: .7em 1em;
-      border-radius: 5px;
     }
   }
 }

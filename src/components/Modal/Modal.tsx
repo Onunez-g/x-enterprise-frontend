@@ -1,13 +1,7 @@
-import { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "./Modal.scss";
-interface ModalProps extends PropsWithChildren<any> {
-  isOpen: boolean;
-  onClose: (value: boolean) => void;
-  title: string;
-  onOutsideClick?: true;
-}
+import { ModalProps } from "./types";
 
 const Modal = (props: ModalProps): JSX.Element => {
   const portal = document.getElementById("portal");

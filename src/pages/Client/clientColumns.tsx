@@ -33,4 +33,31 @@ export const columns: Column[] = [
   },
 ];
 
+export const addressColumns: Column[] = [
+  {
+    dataField: "streetName",
+    caption: "Street",
+  },
+  {
+    dataField: "aptNumber",
+    caption: "Apt number",
+  },
+  {
+    dataField: "city",
+    caption: "City",
+  },
+  {
+    dataField: "state",
+    caption: "State",
+  },
+  {
+    dataField: "country",
+    caption: "Country",
+  },
+  {
+    dataField: "zipCode",
+    caption: "Zip code",
+  }
+]
+
 export default columns;

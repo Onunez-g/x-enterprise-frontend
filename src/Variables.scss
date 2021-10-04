@@ -56,6 +56,15 @@ $error-color: #f33222;
     border-bottom: thin solid $color;
   }
 }
+@mixin center-main-container($margin: 3em) {
+  display: flex;
+  flex-direction: column;
+  margin: $margin;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 @mixin btn-border-drawing(
   $color: #ccc,
   $hover: black,

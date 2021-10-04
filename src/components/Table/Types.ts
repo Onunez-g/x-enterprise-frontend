@@ -5,6 +5,8 @@ export interface TableProps {
   onEdit?: (value: any) => void
   onDelete?: (value: any) => void
   className?: string
+  onSelect?: (value: any) => void
+  selectionMode?: "click" | "doubleClick"
 }
 
 export interface PaginationProps {

@@ -3,6 +3,7 @@ import { Header, Pagination } from ".";
 import { TableProps } from "./Types";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import Modal from "../Modal/Modal";
+import DeleteModal from "../Modal/DeleteModal";
 
 const Table = (props: TableProps): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
@@ -16,11 +17,25 @@ const Table = (props: TableProps): JSX.Element => {
     return props.datasource.slice(firstPageIndex, lastPageIndex);
   }, [page, props.datasource, pageSize]);
 
+  const onSelect = (value: any, selectMode: "click" | "doubleClick") => {
+    let selectionMode = props.selectionMode ?? "click";
+    selectionMode === selectMode && props.onSelect && props.onSelect(value);
+  };
+
+  const onDelete = () => {
+    props.onDelete && props.onDelete(selected)
+    setOpen(false)
+  }
+
   const renderData = () =>
     currentTableData.map((x, i) => (
-      <tr key={i}>
+      <tr
+        key={i}
+        onClick={() => onSelect(x, "click")}
+        onDoubleClick={() => onSelect(x, "doubleClick")}
+      >
         {props.columns.map((y) => (
-          <td key={y.dataField} onClick={() => console.log(x)}>
+          <td key={y.dataField}>
             {y.cellRender ? y.cellRender(x) : x[y.dataField]}
           </td>
         ))}
@@ -36,7 +51,7 @@ const Table = (props: TableProps): JSX.Element => {
               setSelected(x);
             }}
           >
-            <AiFillDelete size={18} color="#F33222"/>
+            <AiFillDelete size={18} color="#F33222" />
           </td>
         )}
       </tr>
@@ -54,7 +69,15 @@ const Table = (props: TableProps): JSX.Element => {
             />
           </tr>
         </thead>
-        <tbody>{renderData()}</tbody>
+        <tbody>
+          {props.datasource.length > 0 ? (
+            renderData()
+          ) : (
+            <tr>
+              <td className="emptyRow" colSpan={props.columns.length}>There are no records</td>
+            </tr>
+          )}
+        </tbody>
       </table>
       <Pagination
         currentPage={page}
@@ -64,18 +87,7 @@ const Table = (props: TableProps): JSX.Element => {
         className="paginationBar"
       />
       <Modal isOpen={isOpen} onClose={setOpen} title="Delete" onOutsideClick>
-        <div className="deleteModal">
-          Are you sure you want to delete this client?
-          <div className="buttons">
-            <button onClick={() => setOpen(false)} className="cancelBtn">Cancel</button>
-            <button
-              className="deleteBtn"
-              onClick={() => props.onDelete && props.onDelete(selected)}
-            >
-              Delete client
-            </button>
-          </div>
-        </div>
+        <DeleteModal setOpen={setOpen} onDelete={props.onDelete!} />
       </Modal>
     </>
   );

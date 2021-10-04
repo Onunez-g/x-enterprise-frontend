@@ -9,17 +9,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 3em 2em;
+  margin: 3em 2em 1.5em 2em;
 }
 
 .clientForm {
-  display: flex;
-  flex-direction: column;
-  margin: 4em;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  @include center-main-container(4em);
   .clientFormContainer {
     display: flex;
     flex-direction: column;
@@ -47,6 +41,12 @@
       transition: display ease 1s;
     }
     .secondSide {
+      min-width: 500px;
+      .addresses {
+        display: flex;
+        flex-direction: column;
+        margin: 1em 0;
+      }
       .addressForm {
         display: flex;
         flex-direction: column;
@@ -123,6 +123,68 @@
         font-size: 1.1em;
         font-weight: 600;
       }
+    }
+  }
+}
+
+.viewDetails {
+  @include center-main-container();
+  .clientViewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    align-content: space-around;
+    border-radius: 5px;
+    padding: 3em 2em 2.5em 2em;
+    box-shadow: 0 0 20px 1px #8a8a8a60;
+    min-width: 40em;
+    min-height: 30em;
+    height: 100%;
+    .firstRow {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 2em;
+      .idName {
+        h2 {
+          font-size: 1.1em;
+          color: $dark-primary-color;
+        }
+        h3 {
+          font-size: 1em;
+          color: $primary-color;
+          font-weight: 400;
+        }
+      }
+      .edit {
+        @include btn-primary(.3em .8em)
+      }
+      .back {
+        @include btn-secondary($secondary-color, 1.2em);
+      }
+    }
+    .contactRow {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 1em 1.5em;
+      h3 {
+        margin-bottom: 1.5em;
+      }
+      span {
+        font-weight: 600;
+      }
+    }
+    .addresses {
+      margin-top: 2em;
+      align-self: stretch;
+    }
+    .delete {
+      @include btn-reverse-primary(.3em .8em, 1em, 0 1em, $error-color);
+      color: $error-color;
+      margin-top: auto;
+      margin-left: auto;
     }
   }
 }

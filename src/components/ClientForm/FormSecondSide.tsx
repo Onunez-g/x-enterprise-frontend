@@ -5,21 +5,24 @@ import FormInput from "../FormInput/FormInput";
 import { FormProps } from "./types";
 
 const FormSecondSide = ({ value, ...props }: FormProps): JSX.Element => {
-  const [address, setAddress] = useState<Address>({
+  let cleanAddress = {
     streetName: "",
     state: "",
     city: "",
     aptNumber: "",
     country: "",
     zipCode: "",
-  });
+  };
+  const [address, setAddress] = useState<Address>(cleanAddress);
   const [isOpen, setOpen] = useState(false);
-  const onAddAddress = () => {
+  const onAddAddress = (e: any) => {
+    e.preventDefault()
     if (!isOpen) setOpen(true);
     else {
       let addrs = value.addresses;
       addrs.push(address);
       props.setValue({ ...value, addresses: addrs });
+      setAddress(cleanAddress);
     }
   };
   const onAddressChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +34,11 @@ const FormSecondSide = ({ value, ...props }: FormProps): JSX.Element => {
       <div className={`secondSide ${props.className}`}>
         <fieldset about="Address">
           <legend>Addresses</legend>
-          {value.addresses.map((x, i) => (
-            <span key={i}>{addressToString(x)}</span>
-          ))}
+          <div className="addresses">
+            {value.addresses.map((x, i) => (
+              <span key={i}>{addressToString(x)}</span>
+            ))}
+          </div>
           <div className="addressForm">
             {isOpen && (
               <>
@@ -85,7 +90,9 @@ const FormSecondSide = ({ value, ...props }: FormProps): JSX.Element => {
               </>
             )}
             <div className="buttons">
-              <button onClick={onAddAddress} className="addressBtn">{isOpen ? "Save" : "Add"} Address</button>
+              <button onClick={onAddAddress} className="addressBtn">
+                {isOpen ? "Save" : "Add"} Address
+              </button>
             </div>
           </div>
         </fieldset>

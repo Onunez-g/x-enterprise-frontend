@@ -8,7 +8,7 @@ import ClientService from "../../services/client/ClientService";
 const ClientFormPage = (): JSX.Element => {
   let { id } = useParams<{ id: string }>();
   const [hasContinued, setContinue] = useState(false);
-  const [client, setClient] = useState<ClientDto>({
+  let cleanClient = {
     name: "",
     lastname: "",
     identity: "",
@@ -16,7 +16,8 @@ const ClientFormPage = (): JSX.Element => {
     email: "",
     phone: "",
     addresses: [],
-  });
+  };
+  const [client, setClient] = useState<ClientDto>(cleanClient);
   const { goBack, replace } = useHistory();
   useEffect(() => {
     if (id) {
@@ -24,12 +25,23 @@ const ClientFormPage = (): JSX.Element => {
     }
   }, [id]);
   const onSubmit = (e: any) => {
-    e.preventDefault()
-    if(!hasContinued) {
-      setContinue(true)
-      return
+    e.preventDefault();
+    if (!hasContinued) {
+      setContinue(true);
+      return;
     }
-  }
+    if (id) {
+      ClientService.UpdateClient(id, client).then(() => {
+        setClient(cleanClient);
+        replace("/");
+      });
+      return;
+    }
+    ClientService.CreateClient(client).then(() => {
+      setClient(cleanClient);
+      replace("/");
+    });
+  };
   return (
     <div className="clientForm">
       <div className="clientFormContainer">
@@ -43,35 +55,19 @@ const ClientFormPage = (): JSX.Element => {
             />
           </div>
           {hasContinued ? (
-            <FormSecondSide
-              value={client}
-              setValue={setClient}
-            />
+            <FormSecondSide value={client} setValue={setClient} />
           ) : (
-            <FormFirstSide
-              value={client}
-              setValue={setClient}
-            />
+            <FormFirstSide value={client} setValue={setClient} />
           )}
           <div className="buttons">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                replace('/')
-              }}
-              className="cancel"
-            >
+            <button onClick={(e) => replace("/")} className="cancel">
               Cancel
             </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setContinue(false);
-              }}
-              className="previous"
-            >
-              Previous
-            </button>
+            {hasContinued && (
+              <button onClick={(e) => setContinue(false)} className="previous">
+                Previous
+              </button>
+            )}
             <button type="submit" className="submit">
               {hasContinued ? "Save" : "Continue"}
             </button>

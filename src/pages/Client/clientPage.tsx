@@ -15,13 +15,10 @@ const ClientPage = (): JSX.Element => {
   const [search, setSearch] = useState("");
   const [isList, setIsList] = useState(0);
 
-  useEffect(() => {
-    ClientService.GetClients()
-    .then(res => {
-      console.log(res)
-      setClients(res)
-    })
-  }, [])
+  const getClients = () => {
+    ClientService.GetClients().then((res) => setClients(res));
+  }
+  useEffect(() => getClients(), []);
 
   const currentDataSource = useMemo(() => {
     if (!search) return clients;
@@ -40,8 +37,13 @@ const ClientPage = (): JSX.Element => {
   const onEditClient = (value: Client) => {
     push(`/edit/${value._id}`);
   };
-  const onDeleteClient = (value: Client) => {};
-  const onViewClient = (value: Client) => {};
+  const onDeleteClient = (value: Client) => {
+    ClientService.DeleteClient(value._id)
+    .then(() => getClients())
+  };
+  const onViewClient = (value: Client) => {
+    push(`/view/${value._id}`)
+  };
   return (
     <>
       <div className="clientContainer">
@@ -57,7 +59,9 @@ const ClientPage = (): JSX.Element => {
             columns={Columns}
             className="clientTable"
             onEdit={onEditClient}
-            onDelete={(value: Client) => console.log(value)}
+            onDelete={onDeleteClient}
+            onSelect={onViewClient}
+            selectionMode="doubleClick"
           />
         ) : (
           <DataViewer

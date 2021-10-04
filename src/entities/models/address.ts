@@ -9,5 +9,6 @@ export class Address {
 }
 
 export function addressToString(addr: Address): string {
+  if(!addr) return ""
   return `${addr.streetName} ${addr.aptNumber}, ${addr.city}, ${addr.state} ${addr.zipCode}`
 }
