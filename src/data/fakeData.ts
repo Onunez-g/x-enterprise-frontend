@@ -15,12 +15,14 @@ export const getClients = (): Client[] => {
     address.country = "United States"
     address.zipCode = addr.zipcode
     clients.push({
+      _id: faker.datatype.uuid(),
       name: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      identifier: faker.random.alphaNumeric(11),
+      lastname: faker.name.lastName(),
+      identity: faker.datatype.string(11),
+      identityType: "Id",
       email: faker.internet.email(),
       phone: faker.phone.phoneNumberFormat(),
-      adresses: [address]
+      addresses: [address]
     })
   }
   return clients

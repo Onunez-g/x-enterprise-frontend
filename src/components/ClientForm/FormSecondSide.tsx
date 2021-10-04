@@ -1,51 +1,94 @@
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { Address, addressToString } from "../../entities/models/address";
+import FormInput from "../FormInput/FormInput";
+import { FormProps } from "./types";
 
-const FormSecondSide = (props: any): JSX.Element => {
+const FormSecondSide = ({ value, ...props }: FormProps): JSX.Element => {
+  const [address, setAddress] = useState<Address>({
+    streetName: "",
+    state: "",
+    city: "",
+    aptNumber: "",
+    country: "",
+    zipCode: "",
+  });
+  const [isOpen, setOpen] = useState(false);
+  const onAddAddress = () => {
+    if (!isOpen) setOpen(true);
+    else {
+      let addrs = value.addresses;
+      addrs.push(address);
+      props.setValue({ ...value, addresses: addrs });
+    }
+  };
+  const onAddressChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let target = e.target;
+    setAddress({ ...address, [target.name]: target.value });
+  };
   return (
     <>
-      <div className="secondSide">
+      <div className={`secondSide ${props.className}`}>
         <fieldset about="Address">
           <legend>Addresses</legend>
+          {value.addresses.map((x, i) => (
+            <span key={i}>{addressToString(x)}</span>
+          ))}
           <div className="addressForm">
-            <AiOutlineClose className="discardAddress" />
-            <div className="formGroup">
-              <label>
-                City:
-                <input type="text" />
-              </label>
-              <label>
-                State:
-                <input type="text" />
-              </label>
-              <label>
-                Country:
-                <input type="text" />
-              </label>
-            </div>
-            <div className="formGroup">
-              <label>
-                Street Name:
-                <input type="text" />
-              </label>
-              <label>
-                Apt #:
-                <input type="text" />
-              </label>
-              <label>
-                Zip Code:
-                <input type="text" />
-              </label>
-            </div>
+            {isOpen && (
+              <>
+                <AiOutlineClose
+                  size={20}
+                  onClick={() => setOpen(false)}
+                  className="discardAddress"
+                />
+                <div className="formGroup">
+                  <FormInput
+                    value={address.city}
+                    name="city"
+                    label="City"
+                    onChange={onAddressChanged}
+                  />
+                  <FormInput
+                    value={address.state}
+                    name="state"
+                    label="State"
+                    onChange={onAddressChanged}
+                  />
+                  <FormInput
+                    value={address.country}
+                    name="country"
+                    label="Country"
+                    onChange={onAddressChanged}
+                  />
+                </div>
+                <div className="formGroup">
+                  <FormInput
+                    value={address.streetName}
+                    name="streetName"
+                    label="Street name"
+                    onChange={onAddressChanged}
+                  />
+                  <FormInput
+                    value={address.aptNumber}
+                    name="aptNumber"
+                    label="Apt #"
+                    onChange={onAddressChanged}
+                  />
+                  <FormInput
+                    value={address.zipCode}
+                    name="zipCode"
+                    label="Zip code"
+                    onChange={onAddressChanged}
+                  />
+                </div>
+              </>
+            )}
             <div className="buttons">
-              <button className="addressBtn">Save Address</button>
+              <button onClick={onAddAddress} className="addressBtn">{isOpen ? "Save" : "Add"} Address</button>
             </div>
           </div>
         </fieldset>
-        <div className="buttons">
-          <button className="cancel">Cancel</button>
-          <button className="previous">Previous</button>
-          <button className="submit">Continue</button>
-        </div>
       </div>
     </>
   );

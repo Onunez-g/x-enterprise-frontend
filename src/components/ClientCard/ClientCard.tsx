@@ -12,10 +12,10 @@ const ClientCard = ({client, ...props}: ClientCardProps): JSX.Element => {
   return (
     <div className="clientCard">
       <div className="row first">
-        <h2>{client.name} {client.lastName}</h2>
+        <h2>{client.name} {client.lastname}</h2>
         <button onClick={() => props.onView(client)} className="viewMore">View more</button>
       </div>
-      <span className="identity">{client.identifier}</span>
+      <span className="identity">{client.identity}</span>
       <span className="email">{client.email}</span>
       <span className="phone">{client.phone}</span>
       <div className="row last">

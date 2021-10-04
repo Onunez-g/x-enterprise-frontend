@@ -1,4 +1,5 @@
 import { Column } from "../../components/Table/Types";
+import { addressToString } from "../../entities/models/address";
 import { Client } from "../../entities/models/Client";
 
 export const columns: Column[] = [
@@ -7,11 +8,11 @@ export const columns: Column[] = [
     caption: "Name",
   },
   {
-    dataField: "lastName",
+    dataField: "lastname",
     caption: "Last name",
   },
   {
-    dataField: "identifier",
+    dataField: "identity",
     caption: "Identity",
   },
   {
@@ -26,7 +27,8 @@ export const columns: Column[] = [
     dataField: "addresses",
     caption: "Addresses",
     cellRender: (data: Client) => {
-      return <span>{data.adresses[0].addressToString()}...</span>;
+      let address = data.addresses ? addressToString(data.addresses[0]) : "No address registered";
+      return <span>{address}...</span>;
     },
   },
 ];

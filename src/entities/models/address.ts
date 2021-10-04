@@ -1,19 +1,13 @@
-interface IAdress {
-  addressToString(): string 
-}
-export class Address implements IAdress {
+export class Address {
   city!: string
   country!: string
   state!: string
   streetName!: string
   zipCode!: string
   aptNumber!: number | string
+  [key: string]: any
+}
 
-  constructor() {
-    this.addressToString = this.addressToString.bind(this)
-  }
-  addressToString(): string {
-    let str = `${this.streetName} ${this.aptNumber}, ${this.city}, ${this.state} ${this.zipCode}`
-    return str
-  }
+export function addressToString(addr: Address): string {
+  return `${addr.streetName} ${addr.aptNumber}, ${addr.city}, ${addr.state} ${addr.zipCode}`
 }

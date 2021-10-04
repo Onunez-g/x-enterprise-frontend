@@ -43,6 +43,9 @@
         }
       }
     }
+    .frontSide, .secondSide {
+      transition: display ease 1s;
+    }
     .secondSide {
       .addressForm {
         display: flex;
@@ -82,6 +85,14 @@
         }
         margin: 0 2.2em;
       }
+    }
+    select {
+      margin: 1em 0;
+      display: block;
+      outline: 0;
+      border: thin solid #c7c7c7;
+      border-radius: 5px;
+      padding: 0.2em 0 0.2em 0.5em;
     }
     input {
       caret-color: $primary-color;
